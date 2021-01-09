@@ -17,13 +17,15 @@ function templateMovies(list) {
 }
 
 async function getData(url) {
-    const data = await fetch(url);
-    const dataJson = await data.json();
-    return dataJson;
+  const data = await fetch(url);
+  const dataJson = await data.json();
+  return dataJson;
 }
 
 function printData(list, container) {
-  list.forEach(e => container.innerHTML += templateMovies(e));
+  list.forEach(e => {
+    container.innerHTML += templateMovies(e)
+  });
 }
 
 (async function movieLists() {
@@ -40,4 +42,21 @@ function printData(list, container) {
   printData(horror.data.movies, containerHorror);
   printData(sciFi.data.movies, containerSciFi);
   printData(adventure.data.movies, containerAdventure);
+  movieSelectionEvent();
 })();
+
+const searchForm = document.getElementById("search-form");
+searchForm.addEventListener("submit", event => {
+  event.preventDefault();
+  console.log(event);
+})
+
+const searchResult = document.getElementById("search-result");
+function movieSelectionEvent() {
+  const figureTags = document.getElementsByClassName("movie");
+  for (e of figureTags) {
+     e.addEventListener("click", () => {
+       searchResult.classList.toggle("toggle");
+     });
+  }
+}
