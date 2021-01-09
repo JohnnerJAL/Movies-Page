@@ -26,12 +26,12 @@ div.container {
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
-figure {
+.movie {
   margin-top: 10px;
   width: 40%;
   border: solid;
 }
-figure:hover {
+.movie:hover {
   transform: scale(1.02);
 }
 img {
@@ -50,10 +50,38 @@ img {
   right: 0%;
   bottom: 0;
   left: 0%;
-  height: 200px;
+  height: 300px;
   border: solid;
   background-color: gray;
   text-align: center;
+  padding: 10px;
+}
+
+.search-result h4 {
+
+}
+
+.result {
+  display: flex;
+  justify-content: space-evenly;
+  border: solid yellow;
+}
+
+
+.result-figure {
+  border: solid 10px blue;
+  width: 120px;
+}
+
+.result div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border: solid red;
+  width: 400px;
+}
+.result div p {
+  text-align: justify;
 }
 
 .toggle {

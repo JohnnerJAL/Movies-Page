@@ -45,13 +45,39 @@ function printData(list, container) {
   movieSelectionEvent();
 })();
 
+const searchResult = document.getElementById("search-result");
+
+function templateSearchResult(movie) {
+  return ` <figure class="result-figure">
+  <picture>
+    <img src="${movie.small_cover_image}" alt="Search result">
+  </picture>
+  <figcaption>${movie.title_long}</figcaption>
+</figure>
+<div>
+  <h4>${movie.title}</h4>
+  <a href="${movie.url}" target="_blank"><p>${movie.url}</p></a>
+  <p>${movie.synopsis}</p>
+  <p>${movie.genres}</p>
+</div>`
+}
+
+const resultContainer = document.getElementById("result");
+
 const searchForm = document.getElementById("search-form");
-searchForm.addEventListener("submit", event => {
+searchForm.addEventListener("submit", async event => {
   event.preventDefault();
   console.log(event);
+  const query = new FormData(searchForm);
+  const result = query.get("name");
+  const url = "https://yts.mx/api/v2/list_movies.json?";
+  const queryUrl = `${url}limit=1&query_term=${result}`;
+  const getMovie = await getData(queryUrl);
+  resultContainer.innerHTML = templateSearchResult(getMovie.data.movies[0]);
+  console.log(getMovie.data.movies[0]);
+  searchResult.classList.add("toggle");
 })
 
-const searchResult = document.getElementById("search-result");
 function movieSelectionEvent() {
   const figureTags = document.getElementsByClassName("movie");
   for (e of figureTags) {
@@ -60,3 +86,6 @@ function movieSelectionEvent() {
      });
   }
 }
+
+
+
